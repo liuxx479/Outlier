@@ -85,16 +85,18 @@ def GRF_from_PS (omS8seed, zs=1.0):
 om_arr, S8_arr, A_se9_arr=loadtxt('GRF_params.txt').T
 
 inputs=array([om_arr,S8_arr, arange(len(om_arr))]).T##omS8seed
-map(GRF_from_PS, inputs[:3])
+#### test on laptop - pass
+# out=map(GRF_from_PS, inputs[:3])
 
 ##### MPIPool
-#pool=MPIPool()
-#if not pool.is_master():
-    #pool.wait()
-    #sys.exit(0)
+pool=MPIPool()
+if not pool.is_master():
+    pool.wait()
+    sys.exit(0)
 
-#out=pool.map(GRF_from_PS, inputs)
-#savetxt('GRF_params_output.txt',out,header='seed\tom\tsi8\tS8\tAs*1e9')
-#pool.close()
+out=pool.map(GRF_from_PS, inputs)
+pool.close()
+
+savetxt('GRF_params_output.txt',out,header='seed\tom\tsi8\tS8\tAs*1e9')
 
 print 'done-done-done'
