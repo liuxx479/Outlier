@@ -67,11 +67,15 @@ A_se9_find = lambda om, S8: -2.1+7.915*S8/sqrt(om/0.3)
 def GRF_from_PS (omS8seed, zs=1.0):
     om, S8, iseed = omS8seed
     print iseed, om, S8
+    #fn_GRF='GRFs/GRF_si%.4f_om%.4f.fits'%(si8, om)
+    #fn_cl='cls/clkk_si%.4f_om%.4f.npy'%(si8, om)
+    fn_GRF='GRFs/GRF_%06d.fits'%(iseed)
+    fn_cl='cls/clkk_%06d.npy'%(iseed)
     A_se9 = A_se9_find(om, S8)
     si8, ell, clkk = clkk_gen (A_se9, om, zs=1.0)
     gaussian_map = gen.fromConvPower(np.array([ell,clkk]),seed=int(iseed),kind="linear",bounds_error=False,fill_value=0.0)
-    gaussian_map.save('GRFs/GRF_si%.4f_om%.4f.fits'%(si8, om))
-    save('cls/clkk_si%.4f_om%.4f.npy'%(si8, om),[ell, clkk])
+    gaussian_map.save(fn_GRF)
+    save(fn_cl,[ell, clkk])
     return iseed, om, si8, S8, A_se9
 
 ####### compute
