@@ -60,7 +60,7 @@ def clkk_gen (Omega_m, A_se9, zs=1.0):
 
 ######### GRF initiate
 
-gen = GaussianNoiseGenerator(shape=(num_pixel_side,num_pixel_side),side_angle=side_angle,label="convergence")
+gen = GaussianNoiseGenerator(shape=(num_pixel_side,num_pixel_side),side_angle=side_angle)#,label="convergence")
 
 A_se9_find = lambda om, S8: -2.1+7.915*S8/sqrt(om/0.3) 
 
