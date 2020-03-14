@@ -9,6 +9,7 @@ from lenstools import ConvergenceMap
 from lenstools import GaussianNoiseGenerator
 from astropy.units import deg
 from emcee.utils import MPIPool 
+import sys
 
 ########## fiducial parameters ##########
 
