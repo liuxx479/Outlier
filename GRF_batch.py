@@ -73,7 +73,7 @@ def GRF_from_PS (omS8seed, zs=1.0):
     fn_GRF='GRFs/GRF_%06d.fits'%(iseed)
     fn_cl='cls/clkk_%06d.npy'%(iseed)
     A_se9 = A_se9_find(om, S8)
-    si8, ell, clkk = clkk_gen (A_se9, om, zs=1.0)
+    si8, ell, clkk = clkk_gen (om, A_se9, zs=1.0)
     gaussian_map = gen.fromConvPower(np.array([ell,clkk]),seed=int(iseed),kind="linear",bounds_error=False,fill_value=0.0)
     gaussian_map.save(fn_GRF)
     save(fn_cl,[ell, clkk])
