@@ -7,6 +7,15 @@ from __future__ import print_function
 import tensorflow_datasets.public_api as tfds
 import tensorflow as tf
 import numpy as np
+from astropy.io import fits
+import os
+
+# Set-up the folder containing the 'my_dataset.txt' checksums.
+checksum_dir = os.path.join(os.path.dirname(__file__), 'url_checksums/')
+checksum_dir = os.path.normpath(checksum_dir)
+
+# Add the checksum dir (will be executed when the user import your dataset)
+tfds.download.add_checksums_dir(checksum_dir)
 
 # TODO(gaussian_convergence): BibTeX citation
 _CITATION = """
@@ -68,7 +77,8 @@ class GaussianConvergence(tfds.core.GeneratorBasedBuilder):
 
     # Read the maps from the directory
     for i, image_file in enumerate(tf.io.gfile.listdir(images_dir_path)):
-      print(i, image_file)
-      with tf.io.gfile.GFile(image_file) as f:
+      with tf.io.gfile.GFile( os.path.join(images_dir_path ,image_file), mode='rb') as f:
         im = fits.getdata(f).astype('float32')
+        f.close()
+
       yield '%d'%i, {"map":im, "params": table[i][[1,3]]}
