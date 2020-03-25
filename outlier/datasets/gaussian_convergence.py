@@ -78,7 +78,7 @@ class GaussianConvergence(tfds.core.GeneratorBasedBuilder):
     # Read the maps from the directory
     for i, image_file in enumerate(tf.io.gfile.listdir(images_dir_path)):
       with tf.io.gfile.GFile( os.path.join(images_dir_path ,image_file), mode='rb') as f:
-        im = fits.getdata(f).astype('float32')
+        im = 1*fits.getdata(f).astype('float32')
         f.close()
 
       yield '%d'%i, {"map":im, "params": table[i][[1,3]]}
