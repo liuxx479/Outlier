@@ -7,5 +7,6 @@ setup(
     author='Jia Liu, Vanessa Boehm, Francois Lanusse',
     description='Code for outlier detection in numerical simulations',
     packages=find_packages(),
-    install_requires=['tensorflow_datasets', 'tensorflow'],
+    package_data={'outlier': ['datasets/url_checksums/*.txt']},
+    install_requires=['tensorflow_datasets', 'tensorflow', 'astropy'],
 )
